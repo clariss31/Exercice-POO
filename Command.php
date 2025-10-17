@@ -58,18 +58,8 @@ class Command {
     // Modification d'un contact par son ID
     public function modify(int $id, string $name, string $email, string $phoneNumber): void
     {
-        $bdd = (new DBConnect())->getPDO();
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $updateContact = $bdd->prepare(
-            'UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id'
-        );
-        $updateContact->execute([
-            'id' => $id,
-            'name' => $name,
-            'email' => $email,
-            'phone_number' => $phoneNumber,
-        ]);
-        if ($updateContact->rowCount() > 0) {
+        $contactManager = new ContactManager();
+        if ($contactManager->modify($id, $name, $email, $phoneNumber)) {
             echo "Contact modifié avec succès.\n";
         } else {
             echo "Aucune modification effectuée (vérifiez l'ID ou les données).\n";

@@ -62,4 +62,25 @@ class ContactManager {
             return false;
         }
     }
+
+    // Modification d'un contact
+    public function modify(int $id, string $name, string $email, string $phoneNumber): bool
+    {
+        $bdd = (new DBConnect())->getPDO();
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $updateContact = $bdd->prepare(
+            'UPDATE contact SET name = :name, email = :email, phone_number = :phone_number WHERE id = :id'
+        );
+        $updateContact->execute([
+            'id' => $id,
+            'name' => $name,
+            'email' => $email,
+            'phone_number' => $phoneNumber,
+        ]);
+        if ($updateContact->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
