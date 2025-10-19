@@ -4,7 +4,7 @@
 class DBConnect {
     public function getPDO() {
         return new PDO(
-            'mysql:host=localhost;dbname=poo;charset=utf8', 'phpuser', 'HDc6ç_é'
+            'mysql:host=localhost;dbname=poo;charset=utf8', 'root', ''
         );
     }
 }
